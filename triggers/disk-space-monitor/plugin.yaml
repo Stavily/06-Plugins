@@ -1,0 +1,84 @@
+plugin:
+  id: "disk-space-monitor"
+  name: "Disk Space Monitor"
+  description: "Monitors disk usage across filesystems with configurable thresholds"
+  version: "1.0.0"
+  author: "Stavily Team"
+  license: "MIT"
+  type: "trigger"
+  
+  # Python execution configuration
+  runtime:
+    type: "python"
+    version: "3.8+"
+    entry_point: "disk_space_monitor.py"
+    requirements: "requirements.txt"
+  
+  # Plugin configuration schema
+  configuration:
+    threshold:
+      type: "number"
+      description: "Disk usage threshold percentage (0-100)"
+      default: 85.0
+      minimum: 0.0
+      maximum: 100.0
+    critical_threshold:
+      type: "number"
+      description: "Critical disk usage threshold percentage (0-100)"
+      default: 95.0
+      minimum: 0.0
+      maximum: 100.0
+    interval:
+      type: "integer"
+      description: "Monitoring interval in seconds"
+      default: 300
+      minimum: 1
+    monitored_paths:
+      type: "array"
+      description: "List of filesystem paths to monitor"
+      default: ["/", "/var", "/tmp", "/home"]
+      items:
+        type: "string"
+    exclude_types:
+      type: "array"
+      description: "Filesystem types to exclude from monitoring"
+      default: ["tmpfs", "devtmpfs", "proc", "sysfs"]
+      items:
+        type: "string"
+    alert_cooldown:
+      type: "integer"
+      description: "Cooldown period between alerts for same filesystem (seconds)"
+      default: 600
+      minimum: 60
+  
+  # Resource limits
+  limits:
+    memory: "64MB"
+    cpu: "0.1"
+    execution_time: "180s"
+  
+  # Permissions
+  permissions:
+    network: false
+    filesystem:
+      read:
+        - "/proc/mounts"
+        - "/proc/filesystems"
+        - "/"
+        - "/var"
+        - "/tmp"
+        - "/home"
+      write: []
+    system_calls:
+      - "statfs"
+  
+  # Tags and categories
+  tags:
+    - "system"
+    - "monitoring"
+    - "disk"
+    - "storage"
+    - "filesystem"
+  
+  categories:
+    - "system-monitoring" 

@@ -1,0 +1,68 @@
+plugin:
+  id: "memory-monitor"
+  name: "Memory Monitor"
+  description: "Monitors RAM and swap usage with configurable thresholds"
+  version: "1.0.0"
+  author: "Stavily Team"
+  license: "MIT"
+  type: "trigger"
+  
+  # Python execution configuration
+  runtime:
+    type: "python"
+    version: "3.8+"
+    entry_point: "memory_monitor.py"
+    requirements: "requirements.txt"
+  
+  # Plugin configuration schema
+  configuration:
+    memory_threshold:
+      type: "number"
+      description: "Memory usage threshold percentage (0-100)"
+      default: 85.0
+      minimum: 0.0
+      maximum: 100.0
+    swap_threshold:
+      type: "number"
+      description: "Swap usage threshold percentage (0-100)"
+      default: 90.0
+      minimum: 0.0
+      maximum: 100.0
+    interval:
+      type: "integer"
+      description: "Monitoring interval in seconds"
+      default: 60
+      minimum: 1
+    alert_cooldown:
+      type: "integer"
+      description: "Cooldown period between alerts of same type (seconds)"
+      default: 300
+      minimum: 60
+  
+  # Resource limits
+  limits:
+    memory: "64MB"
+    cpu: "0.1"
+    execution_time: "120s"
+  
+  # Permissions
+  permissions:
+    network: false
+    filesystem:
+      read:
+        - "/proc/meminfo"
+        - "/proc/swaps"
+      write: []
+    system_calls:
+      - "sysinfo"
+  
+  # Tags and categories
+  tags:
+    - "system"
+    - "monitoring"
+    - "memory"
+    - "ram"
+    - "swap"
+  
+  categories:
+    - "system-monitoring" 

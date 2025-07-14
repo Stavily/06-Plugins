@@ -1,0 +1,12 @@
+# Common dependencies for Stavily plugins
+psutil>=5.8.0          # System monitoring (CPU, memory, disk, processes)
+requests>=2.25.0       # HTTP client for API calls and health checks
+pyyaml>=6.0            # YAML configuration parsing
+watchdog>=2.1.0        # File system monitoring
+
+# Optional dependencies (uncomment as needed)
+# slack-sdk>=3.19.0    # Slack API client
+# docker>=6.0.0        # Docker API client
+# pymongo>=4.0.0       # MongoDB client
+# mysql-connector-python>=8.0.0  # MySQL client
+# psycopg2-binary>=2.9.0  # PostgreSQL client 

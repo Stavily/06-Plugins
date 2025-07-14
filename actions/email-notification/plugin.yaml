@@ -1,0 +1,74 @@
+plugin:
+  id: "email-notification"
+  name: "Email Notification"
+  description: "Sends email notifications for alerts, reports, and automation updates"
+  version: "1.0.0"
+  author: "Stavily Team"
+  license: "MIT"
+  type: "action"
+  
+  # Python execution configuration
+  runtime:
+    type: "python"
+    version: "3.8+"
+    entry_point: "email_notification.py"
+    requirements: "requirements.txt"
+  
+  # Plugin configuration schema
+  configuration:
+    smtp_server:
+      type: "string"
+      description: "SMTP server hostname"
+      required: true
+      examples: ["smtp.gmail.com", "smtp.outlook.com"]
+    smtp_port:
+      type: "integer"
+      description: "SMTP server port"
+      default: 587
+      required: false
+    username:
+      type: "string"
+      description: "SMTP username/email"
+      required: true
+    password:
+      type: "string"
+      description: "SMTP password or app password"
+      required: true
+      sensitive: true
+    from_email:
+      type: "string"
+      description: "From email address (defaults to username)"
+      required: false
+    use_tls:
+      type: "boolean"
+      description: "Use TLS encryption"
+      default: true
+      required: false
+  
+  # Resource limits
+  limits:
+    memory: "128MB"
+    cpu: "0.2"
+    execution_time: "120s"
+  
+  # Permissions
+  permissions:
+    network: true
+    filesystem:
+      read:
+        - "/tmp"  # For attachments
+      write:
+        - "/tmp"  # For temporary files
+    system_calls:
+      - "socket"
+      - "connect"
+  
+  # Tags and categories
+  tags:
+    - "notification"
+    - "email"
+    - "alert"
+    - "communication"
+  
+  categories:
+    - "communication" 

@@ -1,0 +1,89 @@
+plugin:
+  id: "shell-command"
+  name: "Shell Command"
+  description: "Executes shell commands safely with configurable restrictions"
+  version: "1.0.0"
+  author: "Stavily Team"
+  license: "MIT"
+  type: "action"
+  
+  # Python execution configuration
+  runtime:
+    type: "python"
+    version: "3.8+"
+    entry_point: "shell_command.py"
+    requirements: "requirements.txt"
+  
+  # Plugin configuration schema
+  configuration:
+    allowed_commands:
+      type: "array"
+      description: "Whitelist of allowed command executables"
+      default: []
+      items:
+        type: "string"
+      examples: [["ls", "ps", "grep", "tail", "systemctl"]]
+    blocked_commands:
+      type: "array"
+      description: "Blacklist of blocked command executables"
+      default: ["rm", "rmdir", "dd", "mkfs", "fdisk", "format"]
+      items:
+        type: "string"
+    allowed_paths:
+      type: "array"
+      description: "List of allowed working directory paths"
+      default: ["/tmp", "/var/tmp"]
+      items:
+        type: "string"
+    timeout:
+      type: "integer"
+      description: "Default command timeout in seconds"
+      default: 300
+      minimum: 1
+      maximum: 3600
+    max_output_size:
+      type: "integer"
+      description: "Maximum output size in bytes"
+      default: 1048576
+      minimum: 1024
+  
+  # Resource limits
+  limits:
+    memory: "256MB"
+    cpu: "0.5"
+    execution_time: "3600s"
+  
+  # Permissions
+  permissions:
+    network: false
+    filesystem:
+      read:
+        - "/tmp"
+        - "/var/tmp"
+        - "/var/log"
+        - "/proc"
+        - "/sys"
+      write:
+        - "/tmp"
+        - "/var/tmp"
+    system_calls:
+      - "execve"
+      - "fork"
+      - "clone"
+  
+  # Security settings
+  security:
+    sandbox: true
+    user_isolation: true
+    network_isolation: true
+  
+  # Tags and categories
+  tags:
+    - "system"
+    - "command"
+    - "shell"
+    - "automation"
+    - "execution"
+  
+  categories:
+    - "system-management" 

@@ -1,0 +1,2 @@
+# Shell command plugin uses built-in subprocess module
+# No external dependencies required 

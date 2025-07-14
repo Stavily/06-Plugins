@@ -1,0 +1,2 @@
+# Email plugin uses built-in smtplib and email modules
+# No external dependencies required 
