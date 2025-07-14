@@ -486,4 +486,6 @@ def main():
 
 
 if __name__ == "__main__":
+    print("this has worked")
+    return(0)
     main() 
