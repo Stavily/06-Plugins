@@ -487,6 +487,6 @@ def main():
 
 if __name__ == "__main__":
     print("this has worked")
-    print(f"Executed at {datetime.now()}")
+    print(f"Executed at {str(datetime.now())}")
     return(0)
     main() 
